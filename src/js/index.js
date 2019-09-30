@@ -2,15 +2,20 @@ import React from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
 import Navbar from "./Navbar";
+import MainCard from "./MainCard";
 import "../style/style.css";
 
 class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			repos: {}
+			area: "",
+			city: "",
+			timezoneList: {},
+			selectedCity: {}
 		};
 		this.handleTimezoneList = this.handleTimezoneList.bind(this);
+		this.updateArea = this.updateArea.bind(this);
 	}
 	handleTimezoneList(list) {
 		const getArea = str => str.match(/^\w+/)[0];
@@ -19,17 +24,23 @@ class App extends React.Component {
 		});
 		const uniqueTimezone = new Set(timezoneList);
 		// console.log(uniqueTimezone);
-		const stateTimezoneCity = {};
+		const stateTimezoneCities = {};
 		uniqueTimezone.forEach(el => {
-			stateTimezoneCity[el] = [];
+			stateTimezoneCities[el] = [];
 		});
 		list.forEach(el => {
 			const area = getArea(el);
 			const city = el.match(/\w+$/)[0];
-			stateTimezoneCity[area].push(city);
+			stateTimezoneCities[area].push(city);
 		});
-		console.log(stateTimezoneCity);
-		return stateTimezoneCity;
+		console.log(stateTimezoneCities);
+		return stateTimezoneCities;
+	}
+	updateArea(area) {
+		// console.log(area);
+		this.setState({
+			area
+		});
 	}
 	async componentDidMount() {
 		// console.log("App componentDidMount");
@@ -37,11 +48,20 @@ class App extends React.Component {
 		// const json = await result.json();
 		// await console.log(json);
 		try {
-			const result = await axios.get("http://worldtimeapi.org/api/timezone/");
-			// console.log(result);
-			const cityList = this.handleTimezoneList(result.data);
+			// fetch the list of Cities per Region/area
+			const timezoneList = await axios.get(
+				"http://worldtimeapi.org/api/timezone/"
+			);
+			const citiesList = await this.handleTimezoneList(timezoneList.data);
+
+			// fetch the local time from the user's location
+			const currentTimezone = await axios.get("http://worldtimeapi.org/api/ip");
+			const selectedCity = await currentTimezone.data;
+			const area = selectedCity.timezone.match(/^\w+/)[0];
 			this.setState({
-				repos: cityList
+				area,
+				timezoneList: citiesList,
+				selectedCity
 			});
 		} catch (error) {
 			console.log(error);
@@ -51,10 +71,15 @@ class App extends React.Component {
 	render() {
 		return (
 			<div className="container">
-				<Navbar />
+				<Navbar
+					changeArea={area => this.updateArea(area)}
+					area={this.state.area}
+					timezoneList={this.state.timezoneList}
+				/>
+				<MainCard selectedCity={this.state.selectedCity} />
 			</div>
 		);
 	}
 }
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById("app"));
