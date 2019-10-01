@@ -52,10 +52,13 @@ class Navbar extends React.Component {
 		return (
 			<React.Fragment>
 				<ul className="flex-center menu-area">
-					{this.areas.map(el => (
+					{this.areas.map((el, i) => (
 						<li
 							key={el}
-							onMouseOver={() => this.setState({ areaHovered: el })}
+							onMouseOver={() => {
+								console.log(`areaHovered: ${el}`);
+								this.setState({ areaHovered: el });
+							}}
 							// onMouseLeave={() => this.setState({ areaHovered: "" })}
 						>
 							<button
@@ -67,10 +70,10 @@ class Navbar extends React.Component {
 							>
 								{el}
 							</button>
+							{citiesOnHoverArea[i]}
 						</li>
 					))}
 				</ul>
-				{citiesOnHoverArea}
 			</React.Fragment>
 		);
 	}

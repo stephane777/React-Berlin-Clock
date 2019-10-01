@@ -31,13 +31,18 @@ li {
 .menu-cities {
 	position: absolute;
 	display: none;
-	border: 1px solid #ccc;
 	background-color: #ccc;
 }
 .active {
 	display: block;
+	top: 40px;
+	left: 0px;
 }
-.menu-area li {
+.menu-area > li {
 	height: 40px;
 	display: flex;
+	position: relative;
+}
+.menu-cities li {
+	margin: 0;
 }
