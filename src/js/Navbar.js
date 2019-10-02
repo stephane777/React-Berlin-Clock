@@ -6,7 +6,8 @@ class Navbar extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			areaHovered: ""
+			areaHovered: "",
+			error: null
 		};
 		this.areas = [
 			"Africa",
@@ -19,35 +20,44 @@ class Navbar extends React.Component {
 			"Indian",
 			"Pacific"
 		];
+		this.citiesOnHoverArea = "";
 		// this.timezoneList = this.props.timezoneList;
 		// this.changeArea = this.props.changeArea;
 		// this.area = this.props.area;
 		this.getCities = this.getCities.bind(this);
+		this.isLoading = this.isLoading.bind(this);
 	}
 
 	getCities(area) {
 		const cities = this.props.timezoneList[area];
 		return cities.map(city => <li key={city}>{city}</li>);
 	}
+	isLoading() {
+		const { timezoneList, area } = this.props;
+		return !timezoneList[area] && !area && this.state.error === null;
+	}
+
+	// console.log(this.citiesOnHoverArea);
 
 	render() {
-		const isTimezoneListPopulated = Object.keys(this.props.timezoneList).length;
-		const classes = ["menu-cities"];
-
-		const citiesOnHoverArea = this.areas.map(area => {
-			return isTimezoneListPopulated ? (
-				<ul
-					className={`menu-cities ${
-						area === this.state.areaHovered ? "active" : ""
-					}`}
-					key={area}
-					id={area}
-				>
-					{this.getCities(area)}
-				</ul>
-			) : null;
-			// return timezoneList ? <ul>{timezoneList[area]}</ul> : false;
-		});
+		console.log(`Navbar.js render`);
+		!this.isLoading()
+			? (this.citiesOnHoverArea = this.areas.map(area => {
+					// console.log(isTimezoneListPopulated);
+					return (
+						<div
+							className={`menu-cities ${
+								area === this.state.areaHovered ? "active" : ""
+							}`}
+						>
+							<ul className="flex-center list-cities" key={area} id={area}>
+								{this.getCities(area)}
+							</ul>
+						</div>
+					);
+					// return timezoneList ? <ul>{timezoneList[area]}</ul> : false;
+			  }))
+			: null;
 
 		return (
 			<React.Fragment>
@@ -56,7 +66,6 @@ class Navbar extends React.Component {
 						<li
 							key={el}
 							onMouseOver={() => {
-								console.log(`areaHovered: ${el}`);
 								this.setState({ areaHovered: el });
 							}}
 							// onMouseLeave={() => this.setState({ areaHovered: "" })}
@@ -70,7 +79,7 @@ class Navbar extends React.Component {
 							>
 								{el}
 							</button>
-							{citiesOnHoverArea[i]}
+							{this.citiesOnHoverArea && this.citiesOnHoverArea[i]}
 						</li>
 					))}
 				</ul>

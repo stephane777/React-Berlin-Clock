@@ -46,3 +46,12 @@ li {
 .menu-cities li {
 	margin: 0;
 }
+.list-cities {
+	width: 480px;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+}
+.list-cities li {
+	width: 120px;
+	padding: 5px 0;
+}

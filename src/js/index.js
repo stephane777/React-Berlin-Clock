@@ -43,6 +43,7 @@ class App extends React.Component {
 		});
 	}
 	async componentDidMount() {
+		console.log("Index.js componentDidMount");
 		// console.log("App componentDidMount");
 		// const result = await fetch("http://worldtimeapi.org/api/timezone");
 		// const json = await result.json();
