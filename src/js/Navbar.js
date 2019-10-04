@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import NavbarCities from "./NavbarCities";
 import "../style/navbar.css";
 
 class Navbar extends React.Component {
@@ -21,44 +22,23 @@ class Navbar extends React.Component {
 			"Pacific"
 		];
 		this.citiesOnHoverArea = "";
-		// this.timezoneList = this.props.timezoneList;
-		// this.changeArea = this.props.changeArea;
-		// this.area = this.props.area;
-		this.getCities = this.getCities.bind(this);
 		this.isLoading = this.isLoading.bind(this);
 	}
 
-	getCities(area) {
-		const cities = this.props.timezoneList[area];
-		return cities.map(city => <li key={city}>{city}</li>);
-	}
 	isLoading() {
 		const { timezoneList, area } = this.props;
 		return !timezoneList[area] && !area && this.state.error === null;
 	}
 
-	// console.log(this.citiesOnHoverArea);
+	componentDidMount() {
+		console.log("[navbar.js] componentDidMount");
+	}
+	componentDidUpdate() {
+		console.log("[navbar.js componentDidUpdate]");
+	}
 
 	render() {
-		console.log(`Navbar.js render`);
-		!this.isLoading()
-			? (this.citiesOnHoverArea = this.areas.map(area => {
-					// console.log(isTimezoneListPopulated);
-					return (
-						<div
-							className={`menu-cities ${
-								area === this.state.areaHovered ? "active" : ""
-							}`}
-						>
-							<ul className="flex-center list-cities" key={area} id={area}>
-								{this.getCities(area)}
-							</ul>
-						</div>
-					);
-					// return timezoneList ? <ul>{timezoneList[area]}</ul> : false;
-			  }))
-			: null;
-
+		console.log(Object.keys(this.citiesOnHoverArea));
 		return (
 			<React.Fragment>
 				<ul className="flex-center menu-area">
@@ -79,7 +59,14 @@ class Navbar extends React.Component {
 							>
 								{el}
 							</button>
-							{this.citiesOnHoverArea && this.citiesOnHoverArea[i]}
+							{/* {this.citiesOnHoverArea && this.citiesOnHoverArea[i]} */}
+							{!this.isLoading() ? (
+								<NavbarCities
+									area={el}
+									timezoneList={this.props.timezoneList}
+									areaHovered={this.state.areaHovered}
+								/>
+							) : null}
 						</li>
 					))}
 				</ul>

@@ -31,7 +31,7 @@ li {
 .menu-cities {
 	position: absolute;
 	display: none;
-	background-color: #ccc;
+	background-color: rgba(236, 252, 255, 0.8);
 }
 .active {
 	display: block;
@@ -54,4 +54,5 @@ li {
 .list-cities li {
 	width: 120px;
 	padding: 5px 0;
+	font-size: 11px;
 }
