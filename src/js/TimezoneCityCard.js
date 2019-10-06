@@ -1,4 +1,5 @@
 import React from "react";
+import "../style/TimezoneCityCard.css";
 
 const TimezoneCityCard = ({ selectedCity }) => {
 	const {

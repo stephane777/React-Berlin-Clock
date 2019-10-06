@@ -31,7 +31,24 @@ li {
 .menu-cities {
 	position: absolute;
 	display: none;
-	background-color: rgba(236, 252, 255, 0.8);
+	background-color: rgba(235, 252, 255, 0.8);
+	border-top: 1px solid #ccc;
+}
+.menu-cities:after {
+	content: "";
+	/* border-bottom: 12px solid rgb(241, 241, 241); */
+	/* border-top: transparent; */
+	/* border-left: 12px solid transparent;
+	border-right: 12px solid transparent; */
+	border-top: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	background-color: rgb(235, 252, 255);
+	width: 15px;
+	height: 15px;
+	position: absolute;
+	top: -9px;
+	left: 20px;
+	transform: rotate(45deg);
 }
 .active {
 	display: block;
@@ -47,12 +64,63 @@ li {
 	margin: 0;
 }
 .list-cities {
-	width: 480px;
+	width: 360px;
 	flex-wrap: wrap;
 	justify-content: flex-start;
 }
 .list-cities li {
-	width: 120px;
+	width: 90px;
 	padding: 5px 0;
 	font-size: 11px;
+}
+#america,
+#asia {
+	width: 630px;
+}
+
+#america li,
+#asia li {
+	width: 90px;
+}
+#container-america:after {
+	left: 35px;
+}
+#container-antarctica:after {
+	left: 45px;
+}
+#container-asia {
+	left: -200px;
+}
+#container-asia:after {
+	left: 220px;
+}
+#container-atlantic {
+	left: -140px;
+}
+#container-atlantic:after {
+	left: 170px;
+}
+#container-australia {
+	left: -140px;
+}
+#container-australia:after {
+	left: 175px;
+}
+#container-europe {
+	left: -150px;
+}
+#container-europe:after {
+	left: 180px;
+}
+#container-indian {
+	left: -220px;
+}
+#container-indian:after {
+	left: 246px;
+}
+#container-pacific {
+	left: -290px;
+}
+#container-pacific:after {
+	left: 320px;
 }

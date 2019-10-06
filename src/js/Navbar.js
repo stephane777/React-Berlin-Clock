@@ -23,8 +23,19 @@ class Navbar extends React.Component {
 		];
 		this.citiesOnHoverArea = "";
 		this.isLoading = this.isLoading.bind(this);
+		this.handleOnMouseEnter = this.handleOnMouseEnter.bind(this);
+		this.handleOnMouseOut = this.handleOnMouseOut.bind(this);
 	}
-
+	handleOnMouseEnter(area) {
+		this.state.areaHovered !== area
+			? this.setState({ areaHovered: area })
+			: console.log(`this.state.areaHovered is not updated!`);
+	}
+	handleOnMouseOut(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		this.setState({ areaHovered: "" });
+	}
 	isLoading() {
 		const { timezoneList, area } = this.props;
 		return !timezoneList[area] && !area && this.state.error === null;
@@ -38,17 +49,18 @@ class Navbar extends React.Component {
 	}
 
 	render() {
-		console.log(Object.keys(this.citiesOnHoverArea));
+		// console.log(Object.keys(this.citiesOnHoverArea));
+
 		return (
 			<React.Fragment>
 				<ul className="flex-center menu-area">
 					{this.areas.map((el, i) => (
 						<li
 							key={el}
-							onMouseOver={() => {
-								this.setState({ areaHovered: el });
-							}}
+							// onMouseOver={el => this.setState({ areaHovered: el })}
 							// onMouseLeave={() => this.setState({ areaHovered: "" })}
+							onMouseEnter={event => this.handleOnMouseEnter(el)}
+							// onMouseOut={event => this.handleOnMouseOut(event,el)}
 						>
 							<button
 								className="btn-clear nav-link"
@@ -65,6 +77,7 @@ class Navbar extends React.Component {
 									area={el}
 									timezoneList={this.props.timezoneList}
 									areaHovered={this.state.areaHovered}
+									onMouseOut={this.handleOnMouseOut}
 								/>
 							) : null}
 						</li>

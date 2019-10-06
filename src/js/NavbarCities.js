@@ -1,22 +1,28 @@
 import React from "react";
 
 const NavbarCities = props => {
-	const { area, areaHovered, timezoneList } = props;
-	console.log("[NavbarCities]");
+	const { area, areaHovered, timezoneList, onMouseOut } = props;
+	// console.log("[NavbarCities]");
 	const getCities = area => {
 		const cities = timezoneList[area];
-		console.log(`[getCities]`);
-		console.log(`[area]: ${area}`);
-		// console.log(`[cities] : ${cities}`);
-		// console.log(`timezoneList[area]:${timezoneList[area]}`);
 		return cities.map(city => <li key={city}>{city}</li>);
 	};
 
 	return (
-		<div className={`menu-cities ${area === areaHovered ? "active" : ""}`}>
-			<ul className="flex-center list-cities" key={area} id={area}>
+		<div
+			id={`container-${area.toLowerCase()}`}
+			className={`menu-cities ${area === areaHovered ? "active" : ""}`}
+			onMouseLeave={event => onMouseOut(event)}
+			// onMouseLeave={event => console.log(`onMouseLeave: ${event.target}`)}
+		>
+			<ul
+				className="flex-center list-cities"
+				key={area}
+				id={area.toLowerCase()}
+			>
 				{getCities(area)}
 			</ul>
+			{/* <div>toto a ski</div> */}
 		</div>
 	);
 };
