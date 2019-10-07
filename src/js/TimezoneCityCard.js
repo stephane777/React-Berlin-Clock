@@ -16,10 +16,6 @@ const TimezoneCityCard = ({ selectedCity }) => {
 				<span>{timezone}</span>
 			</div>
 			<div>
-				<span>Client IP: </span>
-				<span>{client_ip}</span>
-			</div>
-			<div>
 				<span>UTC Date & Time: </span>
 				<span>{utc_datetime}</span>
 			</div>

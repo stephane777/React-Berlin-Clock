@@ -58,7 +58,7 @@ class App extends React.Component {
 			// fetch the local time from the user's location
 			const currentTimezone = await axios.get("http://worldtimeapi.org/api/ip");
 			const selectedCity = await currentTimezone.data;
-			const area = selectedCity.timezone.match(/^\w+/)[0];
+			const area = await selectedCity.timezone.match(/^\w+/)[0];
 			this.setState({
 				area,
 				timezoneList: citiesList,
@@ -68,7 +68,7 @@ class App extends React.Component {
 			console.log(error);
 		}
 	}
-
+	componentDidUpdate() {}
 	render() {
 		return (
 			<div className="container">

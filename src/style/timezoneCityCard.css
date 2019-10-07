@@ -1,5 +1,7 @@
 .timezoneDetails {
-	margin-top: 250px;
+	margin: 250px 0 0 0;
 	font-family: arial;
 	font-size: 14px;
+
+	width: 500px;
 }
