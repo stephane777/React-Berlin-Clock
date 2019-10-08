@@ -12,7 +12,6 @@ const TimezoneCityCard = ({ selectedCity }) => {
 	return (
 		<div className="timezoneDetails">
 			<div>
-				<span>Timezone: </span>
 				<span>{timezone}</span>
 			</div>
 			<div>
