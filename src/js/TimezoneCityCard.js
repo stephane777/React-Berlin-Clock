@@ -5,10 +5,22 @@ const TimezoneCityCard = ({ selectedCity }) => {
 	const {
 		timezone,
 		client_ip,
+		unixtime,
 		utc_datetime,
 		datetime,
 		utc_offset
 	} = selectedCity;
+
+	const convertUnixTs = t => {
+		var dt = new Date(t * 1000);
+		var hr = dt.getHours();
+		var m = "0" + dt.getMinutes();
+		var s = "0" + dt.getSeconds();
+		return hr + ":" + m.substr(-2) + ":" + s.substr(-2);
+	};
+	// const convertUnix
+	const timeUTC = convertUnixTs(unixtime);
+	// const datetime =
 	return (
 		<div className="timezoneDetails">
 			<div>
@@ -16,7 +28,7 @@ const TimezoneCityCard = ({ selectedCity }) => {
 			</div>
 			<div>
 				<span>UTC Date & Time: </span>
-				<span>{utc_datetime}</span>
+				<span>{timeUTC}</span>
 			</div>
 			<div>
 				<span>UTC Offset: </span>
