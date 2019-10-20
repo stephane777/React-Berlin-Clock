@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import NavbarCities from "./NavbarCities";
 import "../style/navbar.css";
-import areas from "./areas";
+import { areas } from "./utils";
 
 class Navbar extends React.Component {
 	constructor(props) {
