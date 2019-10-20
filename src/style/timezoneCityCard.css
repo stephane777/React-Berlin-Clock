@@ -1,7 +1,53 @@
+@font-face {
+	font-family: "digital-7";
+	/* src: url("../fonts/digital-7.ttf") format("truetype"); */
+	src: url("../fonts/digital-7 (mono).ttf") format("truetype");
+}
+
 .timezoneDetails {
 	margin: 250px 0 0 0;
 	font-family: arial;
 	font-size: 14px;
 
 	width: 500px;
+}
+.flex-container {
+	display: flex;
+	justify-content: center;
+}
+.timezoneTitle {
+	font-size: 22px;
+	font-weight: bold;
+	padding-bottom: 24px;
+}
+.timezone-wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 22px;
+	font-size: 18px;
+	background-color: #444;
+	color: #fff;
+	height: 120px;
+}
+
+.utc-wrapper,
+.date-wrapper {
+	display: flex;
+	flex-wrap: wrap;
+}
+.halfWidth {
+	width: 50%;
+}
+.digital {
+	font-family: digital-7, cursive;
+	font-size: 20px;
+	font-variant-numeric: tabular-nums lining-nums;
+	/* font-size: 22px; */
+}
+.utc-color {
+	color: rgb(255, 137, 59);
+}
+.date-color {
+	color: rgb(0, 204, 255);
 }

@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import NavbarCities from "./NavbarCities";
 import "../style/navbar.css";
+import areas from "./areas";
 
 class Navbar extends React.Component {
 	constructor(props) {
@@ -10,17 +11,7 @@ class Navbar extends React.Component {
 			areaHovered: "",
 			error: null
 		};
-		this.areas = [
-			"Africa",
-			"America",
-			"Antarctica",
-			"Asia",
-			"Atlantic",
-			"Australia",
-			"Europe",
-			"Indian",
-			"Pacific"
-		];
+		this.areas = areas;
 		this.citiesOnHoverArea = "";
 		this.isLoading = this.isLoading.bind(this);
 		this.handleOnMouseEnter = this.handleOnMouseEnter.bind(this);
@@ -39,13 +30,6 @@ class Navbar extends React.Component {
 	isLoading() {
 		const { timezoneList, area } = this.props;
 		return !timezoneList[area] && !area && this.state.error === null;
-	}
-
-	componentDidMount() {
-		console.log("[navbar.js] componentDidMount");
-	}
-	componentDidUpdate() {
-		console.log("[navbar.js componentDidUpdate]");
 	}
 
 	render() {
