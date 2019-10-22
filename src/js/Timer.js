@@ -5,47 +5,70 @@ class Timer extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			time: this.props.time
+			time: this.props.time,
+			timer: null
 		};
 	}
 	// console.log(time);
 	// const [this.hour, this.min, this.sec] = this.props.time.split(":");
 	timer() {
-		setInterval(() => {
-			const seconde = this.state.time.split(":")[2];
-			const minute = this.state.time.split(":")[1];
-			const hour = this.state.time.split(":")[0];
+		const counter = () => {
+			const [hour, minute, seconde] = this.state.time.split(":");
+			const time = { hour: hour, minute: minute, seconde: seconde };
+			const calcTime = unit => {
+				unit = +unit + 1;
+				return unit.toString().length == 1 ? "0" + unit : unit;
+			};
 
-			let sec, min, hr;
+			// switch (time) {
+			// 	case time.seconde == 59 && time.minute == 59 && time.hour == 23:
+			// 		this.setState({
+			// 			time: `00:00:00`
+			// 		});
+			// 	case time.seconde == 59 && time.minute == 59:
+			// 		this.setState({
+			// 			time: `${calcTime(hour)}:00:00`
+			// 		});
+			// 	case seconde == 59 && minute < 59:
+			// 		this.setState({
+			// 			time: `${hour}:${calcTime(minute)}:00`
+			// 		});
+			// 	default:
+			// 		this.setState({
+			// 			time: `${hour}:${minute}:${calcTime(seconde)}`
+			// 		});
+			// }
+
 			if (seconde == 59 && minute == 59 && hour == 23) {
 				this.setState({
 					time: `00:00:00`
 				});
 			} else if (seconde == 59 && minute == 59) {
-				hr = +hr + 1;
-				hr = hr.length < 2 ? "0" + hr : hr;
 				this.setState({
-					time: `${hr}:00:00`
+					time: `${calcTime(hour)}:00:00`
 				});
 			} else if (seconde == 59 && minute < 59) {
-				sec = +seconde + 1;
-				sec = sec.length < 2 ? "0" + sec : sec;
-				min = +min + 1;
-				min = min.length < 2 ? "0" + min : min;
 				this.setState({
-					time: `${this.hour}:${min}:${sec}`
+					time: `${hour}:${calcTime(minute)}:00`
 				});
 			} else if (seconde < 59) {
-				sec = +seconde + 1;
-				sec = sec.length < 2 ? "0" + sec : sec;
 				this.setState({
-					time: `${hour}:${minute}:${sec}`
+					time: `${hour}:${minute}:${calcTime(seconde)}`
 				});
 			}
-		}, 1000);
+		};
+		counter();
+		const timer = setInterval(counter, 1000);
+		return timer;
 	}
 	componentDidMount() {
-		this.timer();
+		const timer = this.timer();
+		this.setState({
+			timer
+		});
+	}
+	componentWillUnmount() {
+		clearInterval(this.state.timer);
 	}
 
 	render() {
