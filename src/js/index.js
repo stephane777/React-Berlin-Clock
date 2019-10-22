@@ -10,7 +10,7 @@ class App extends React.Component {
 		super(props);
 		this.state = {
 			area: "",
-			city: "toto",
+			city: "",
 			timezoneList: {},
 			selectedCity: {},
 			error: null
