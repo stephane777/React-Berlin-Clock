@@ -1,10 +1,13 @@
 import React from "react";
 import "../style/timezoneCityCard.css";
 import Timer from "./Timer";
+import ErrorBoundaries from "./ErrorBoundaries";
 import { days, months } from "./utils";
 
 const TimezoneCityCard = ({ selectedCity }) => {
 	const { timezone, datetime, utc_datetime, utc_offset } = selectedCity;
+	console.log(`[timezoneCityCard]: ${datetime}`);
+	console.log(`[timezoneCityCard]: ${utc_datetime}`);
 	const ordinals = ["st", "nd", "rd", "th"];
 	// selectedCity:{timezone,client_ip,utc_datetime,datetime,utc_offset}
 
@@ -13,7 +16,7 @@ const TimezoneCityCard = ({ selectedCity }) => {
 	};
 
 	const getDate = date => {
-		const dateObj = new Date(date);
+		const dateObj = new Date(date.slice(0, 19));
 		const dateNum = dateObj.getDate().toString();
 		const index = dateNum.length - 1;
 		const currentDayOrdinal =
@@ -28,10 +31,11 @@ const TimezoneCityCard = ({ selectedCity }) => {
 			months[dateObj.getMonth()]
 		}`;
 	};
-
+	console.log(`[calc datetime] : ${getDate(datetime)}`);
 	const utc_time = utc_datetime ? getTime(utc_datetime) : null;
 	const time = datetime ? getTime(datetime) : null;
-
+	// console.log(`[TimezoneCityCard] render(): ${utc_time}`);
+	// console.log(`[TimezoneCityCard] render(): ${time}`);
 	return (
 		<div className="timezoneDetails">
 			<div className="flex-container timezoneTitle">

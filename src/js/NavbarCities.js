@@ -1,11 +1,19 @@
 import React from "react";
 
 const NavbarCities = props => {
-	const { area, areaHovered, timezoneList, onMouseOut } = props;
+	const { area, areaHovered, timezoneList, onMouseOut, updateCity } = props;
 	// console.log("[NavbarCities]");
 	const getCities = area => {
 		const cities = timezoneList[area];
-		return cities.map(city => <li key={city}>{city}</li>);
+		return cities.map(city => (
+			<li
+				style={{ cursor: "pointer" }}
+				key={city}
+				onClick={e => updateCity(e, area, city)}
+			>
+				{city}
+			</li>
+		));
 	};
 
 	return (

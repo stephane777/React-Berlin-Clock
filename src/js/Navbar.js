@@ -48,7 +48,6 @@ class Navbar extends React.Component {
 						>
 							<button
 								className="btn-clear nav-link"
-								onClick={() => this.props.changeArea(el)}
 								style={
 									el === this.props.area ? { color: "red" } : { color: "#000" }
 								}
@@ -59,6 +58,9 @@ class Navbar extends React.Component {
 							{!this.isLoading() ? (
 								<NavbarCities
 									area={el}
+									updateCity={(e, area, city) =>
+										this.props.updateCity(e, area, city)
+									}
 									timezoneList={this.props.timezoneList}
 									areaHovered={this.state.areaHovered}
 									onMouseOut={this.handleOnMouseOut}
@@ -72,8 +74,4 @@ class Navbar extends React.Component {
 	}
 }
 
-Navbar.propTypes = {
-	changeArea: PropTypes.string.isRequired,
-	changeArea: PropTypes.func.isRequired
-};
 export default Navbar;
